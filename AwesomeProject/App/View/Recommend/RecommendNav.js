@@ -5,9 +5,9 @@ import React, {
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import NewGuider from '../Guider/NewGuider'
-import InviteFriends from '../Guider/InviteFriends'
-import Safety from '../Guider/Safety'
+import NewGuider from '../MiddleNav/NewGuider'
+import InviteFriends from '../MiddleNav/InviteFriends'
+import Safety from '../MiddleNav/Safety'
 
 const itemData = [
   {

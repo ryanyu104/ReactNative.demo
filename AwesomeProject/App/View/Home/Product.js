@@ -48,7 +48,7 @@ class ProductView extends Component {
   }
 
   renderRow(rowData) {
-    let listRow = rowData.map(function (value, index) {
+    return rowData.map(function (value, index) {
       return (
         <View style={styles.row} key={index}>
           <Text>
@@ -88,8 +88,6 @@ class ProductView extends Component {
         </View>
       )
     },this)
-
-    return listRow
   }
 
   render() {
@@ -99,7 +97,7 @@ class ProductView extends Component {
       <View style={styles.container}>
         <Text style={styles.title}>
           <Icon name='check' size={15} color='#FDB657' />
-          攒钱助手
+          攒钱工具
         </Text>
         {savingsList}
         <Text style={styles.title}>

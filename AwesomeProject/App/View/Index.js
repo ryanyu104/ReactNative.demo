@@ -6,27 +6,29 @@ import React, {
   StatusBar,
   TabBarIOS,
   Text,
-  Image,
   View
 } from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import RecommendView from './Home/Recommend'
 import ProductView from './Home/Product'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import MineView from './Home/Mine'
 
 class IndexView extends Component {
   constructor() {
     super()
     this.state = {
-      selectedBar: 'recommend'
+      selectedBar: 'mine'
     }
   }
 
   componentWillMount() {
     Icon.getImageSource('bell',20,'#fff').then((source) => this.setState({ bellIcon: source }))
+    Icon.getImageSource('question-circle',20,'#fff').then((source) => this.setState({ questionIcon: source }))
   }
 
-  renderContent(title, component){
+  renderCon(title, component){
      StatusBar.setBarStyle('light-content','true')
+     let rightButtonIcon = component === ProductView ? this.state.questionIcon : this.state.bellIcon
      return (
       <NavigatorIOS
         style = {styles.container}
@@ -37,7 +39,21 @@ class IndexView extends Component {
         initialRoute = {{
           title: title,
           component: component,
-          rightButtonIcon: this.state.bellIcon,
+          rightButtonIcon: rightButtonIcon,
+        }}
+      />
+    )
+  }
+
+  renderMineCon(title, component){
+     StatusBar.setBarStyle('light-content','true')
+     return (
+      <NavigatorIOS
+        style = {styles.container}
+        navigationBarHidden={true}
+        initialRoute = {{
+          title: '',
+          component: component,
         }}
       />
     )
@@ -45,7 +61,7 @@ class IndexView extends Component {
 
 
   render() {
-    if(!this.state.bellIcon) {
+    if(!this.state.bellIcon||!this.state.questionIcon) {
       return false
     }
     return (
@@ -61,7 +77,7 @@ class IndexView extends Component {
           selected = {this.state.selectedBar === 'recommend'}
           onPress = {() => this.setState({selectedBar: 'recommend'})}
         >
-          {this.renderContent('产品推荐', RecommendView)}
+          {this.renderCon('产品推荐', RecommendView)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title = '产品'
@@ -72,18 +88,18 @@ class IndexView extends Component {
           selected = {this.state.selectedBar === 'product'}
           onPress = {() => this.setState({selectedBar: 'product'})}
         >
-          {this.renderContent('产品列表', ProductView)}
+          {this.renderCon('产品列表', ProductView)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title = '我的'
-          key = 'Home'
-          name = 'Home'
+          key = 'mine'
+          name = 'mine'
           iconName='user'
           iconSize={20}
-          selected = {this.state.selectedBar === 'Home'}
-          onPress = {() => this.setState({selectedBar: 'Home'})}
+          selected = {this.state.selectedBar === 'mine'}
+          onPress = {() => this.setState({selectedBar: 'mine'})}
         >
-          {this.renderContent('我的', ProductView)}
+          {this.renderMineCon('我的', MineView)}
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     )

@@ -13,7 +13,7 @@ class RecommendPro extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          随心攒
+          随心宝
         </Text>
         <View  style={styles.subtitleBox}>
           <Text style={styles.subtitle}>

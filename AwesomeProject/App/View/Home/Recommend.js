@@ -51,7 +51,7 @@ class RecommendView extends Component {
             source={require('../../img/banner.png')}
           />
           <Text style={styles.notice}>
-            公告：5月31日起攒钱助手维护升级，暂停使用。
+            公告：5月31日起攒钱工具维护升级，暂停使用。
           </Text>
           <RecommendNav {...this.props}/>
           <View style={styles.grayContainer}>
