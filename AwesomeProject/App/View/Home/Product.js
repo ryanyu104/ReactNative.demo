@@ -1,4 +1,5 @@
 import React, {
+  TouchableHighlight,
   Component,
   StyleSheet,
   ListView,
@@ -6,6 +7,7 @@ import React, {
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import ProductItem from '../Product/ProductItem'
 
 const proData = {
   savingsData: [{
@@ -74,20 +76,33 @@ class ProductView extends Component {
               </Text>
             </View>
             <View style={styles.column}>
-              <View style={styles.btn}>
-                <Text style={styles.buy}>
-                  购买
-                </Text>
-                <Text style={styles.time}>
-                  (起售时间11:00)
-                </Text>
-              </View>
+              <TouchableHighlight
+                underlayColor="transparent"
+                onPress={
+                  ()=>{
+                    this.props.navigator.push({
+                      title: value.title,
+                      component: ProductItem,
+                      passProps: {navigator: this.props.navigator}
+                    })
+                  }
+                }
+              >
+                <View style={styles.btn}>
+                  <Text style={styles.buy}>
+                    购买
+                  </Text>
+                  <Text style={styles.time}>
+                    (起售时间11:00)
+                  </Text>
+                </View>
+              </TouchableHighlight>
             </View>
           </View>
           {value.frozenDays===90 ? this.renderDeduction():null}
         </View>
       )
-    },this)
+    }, this)
   }
 
   render() {

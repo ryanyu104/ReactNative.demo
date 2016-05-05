@@ -1,4 +1,5 @@
 import React, {
+  TouchableHighlight,
   Component,
   StyleSheet,
   ListView,
@@ -8,7 +9,7 @@ import React, {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import MineHeader from '../Mine/Header'
-
+import InviteFriends from '../MiddleNav/InviteFriends'
 
 const userData = [{
   title: '攒钱工具',
@@ -20,15 +21,13 @@ const userData = [{
   yesterday: '254.00',
   amount: '25400.00',
   titleColor: '#62BFCD'
+}, {
+  title: '随心宝',
+  yesterday: '254.00',
+  amount: '25400.00',
+  titleColor: '#F63A2C'
 }]
 
-const navData = [{
-  icon: 'gift',
-  title: '我的福利'
-}, {
-  icon: 'bullhorn',
-  title: '邀请好友'
-}]
 
 class MineView extends Component {
   constructor() {
@@ -58,34 +57,16 @@ class MineView extends Component {
           </Text>
         </View>
       )
-    })
-  }
-
-  renderNavRow() {
-    return navData.map(function (value, index) {
-      return (
-        <View style={styles.navList} key={index}>
-          <Text>
-            <Icon  name={value.icon} size={20} color='#999'/>
-            <Text style={styles.navTitle}>{value.title}</Text>
-          </Text>
-          <Icon style={styles.angleRight} name='angle-right' size={20} color='#999'/>
-        </View>
-      )
-    })
+    }, this)
   }
 
   render() {
     let listView = this.renderList()
-    let listRow = this.renderNavRow()
     return (
       <View style={styles.container}>
         <MineHeader/>
         <View style={styles.main}>
           {listView}
-          <View style={[styles.nav,styles.shadow]} >
-            {listRow}
-          </View>
         </View>
        </View>
     )
