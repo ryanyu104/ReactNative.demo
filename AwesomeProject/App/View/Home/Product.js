@@ -2,7 +2,6 @@ import React, {
   TouchableHighlight,
   Component,
   StyleSheet,
-  ListView,
   Text,
   View
 } from 'react-native'

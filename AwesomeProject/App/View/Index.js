@@ -17,7 +17,7 @@ class IndexView extends Component {
   constructor() {
     super()
     this.state = {
-      selectedBar: 'product'
+      selectedBar: 'recommend'
     }
   }
 

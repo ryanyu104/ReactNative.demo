@@ -1,8 +1,10 @@
 import React, {
+  TouchableHighlight,
   Component,
   Text,
   View
 } from 'react-native'
+import ProductItem from '../Product/ProductItem'
 
 class RecommendPro extends Component {
   constructor() {
@@ -30,14 +32,27 @@ class RecommendPro extends Component {
           <Text style={styles.detail}>剩余份额2000.00</Text>
         </View>
         <View style={styles.btnContainer}>
-          <View style={styles.btn}>
-            <Text style={styles.btnText}>
-              立刻购买
-            </Text>
-            <Text style={styles.btnTimeText}>
-              (起售时间11:00)
-            </Text>
-          </View>
+          <TouchableHighlight
+            underlayColor="transparent"
+            onPress={
+              ()=>{
+                this.props.navigator.push({
+                  title: '随心宝',
+                  component: ProductItem,
+                  passProps: {navigator: this.props.navigator}
+                })
+              }
+            }
+          >
+            <View style={styles.btn}>
+              <Text style={styles.btnText}>
+                立刻购买
+              </Text>
+              <Text style={styles.btnTimeText}>
+                (起售时间11:00)
+              </Text>
+            </View>
+          </TouchableHighlight>
         </View>
       </View>
     )

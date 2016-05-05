@@ -1,20 +1,43 @@
 import React, {
-  TouchableHighlight,
   Component,
   StyleSheet,
-  ListView,
   TextInput,
   Text,
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+const orderData = {
+  productData: {
+    minAmount: 100
+  },
+  bankData: [{
+    bankname: '招商银行',
+    bankcard: '8000',
+  }, {
+    bankname: '建设银行',
+    bankcard: '7000',
+  }]
+}
+
 class ProductItem extends Component {
   constructor() {
     super()
+    this.state = {
+      text: ''
+    }
+  }
+
+  checkError() {
+    if (this.state.text < orderData.productData.minAmount) {
+      return true
+    }
+    return false
   }
 
   render() {
+    let btnText = this.checkError() ? '购买' : `实付${this.state.text}元`
+
     return (
       <View style={styles.container}>
         <View style={styles.wrapper}>
@@ -24,6 +47,9 @@ class ProductItem extends Component {
             </Text>
             <TextInput
               style={styles.moneyInput}
+              onChangeText={(text) => this.setState({text})}
+              value={this.state.text}
+              keyboardType='numeric'
               placeholder='100元起投'
             />
           </View>
@@ -38,8 +64,8 @@ class ProductItem extends Component {
           </View>
         </View>
         <View style={styles.btn}>
-          <Text style={styles.btnText}>
-            购买
+          <Text style={[styles.btnText, this.checkError() ? styles.btnDisable : null]}>
+            {btnText}
           </Text>
         </View>
       </View>
@@ -54,51 +80,53 @@ var styles = React.StyleSheet.create({
     backgroundColor: '#F5F5F5',
     padding: 10
   },
-  wrapper:{
-   backgroundColor:'#fff',
-   paddingLeft: 10,
-   paddingRight: 10,
+  wrapper: {
+    backgroundColor: '#fff',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
-  moneyBox:{
-    borderColor:'#F5F5F5',
+  moneyBox: {
+    borderColor: '#F5F5F5',
     borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
   },
-  bankBox:{
+  bankBox: {
     flexDirection: 'row',
     padding: 5,
     paddingTop: 10,
     paddingBottom: 10,
   },
-  bankDetail:{
-    color:'#62BFCD'
+  bankDetail: {
+    color: '#62BFCD'
   },
-  title:{
+  title: {
     width: 70,
   },
-  moneyInput:{
-    flex:1,
+  moneyInput: {
+    flex: 1,
     height: 30
   },
-  angleRight:{
-    position:'absolute',
+  angleRight: {
+    position: 'absolute',
     right: 10,
     top: 7
   },
-  btn:{
-    justifyContent:'center',
+  btn: {
+    justifyContent: 'center',
     padding: 10,
     marginTop: 10
   },
-  btnText:{
+  btnText: {
     color: '#fff',
-    textAlign:'center',
+    textAlign: 'center',
     borderRadius: 5,
     backgroundColor: '#FDB657',
     padding: 10,
-
+  },
+  btnDisable: {
+    backgroundColor: '#EDEEF2'
   }
 })
 

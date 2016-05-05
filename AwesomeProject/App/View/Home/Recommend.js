@@ -55,7 +55,7 @@ class RecommendView extends Component {
           </Text>
           <RecommendNav {...this.props}/>
           <View style={styles.grayContainer}>
-            <RecommendPro />
+            <RecommendPro {...this.props}/>
           </View>
         </ScrollView>
       </View>

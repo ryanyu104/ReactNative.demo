@@ -1,7 +1,7 @@
 import React, {
   Component,
   StyleSheet,
-  ListView,
+  Animated,
   Text,
   Image,
   View
@@ -11,13 +11,31 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 class MineHeader extends Component {
   constructor() {
     super()
+    this.state = {
+      scaleValue: new Animated.Value(0),
+    }
+  }
+
+  componentDidMount() {
+    this.state.scaleValue.setValue(1);
+    Animated.timing(
+      this.state.scaleValue,
+      {
+        toValue: 1.08,
+        duration: 3000,
+      }
+    ).start()
   }
 
   render() {
     return (
       <View style={styles.container}>
-         <Image
-            style={styles.bg}
+         <Animated.Image
+            style={[styles.bg,{
+              transform: [
+                {scale: this.state.scaleValue},
+              ]
+            }]}
             source={require('../../img/triangle_bg.png')}
           />
           <View style={styles.circle}>
@@ -42,6 +60,7 @@ var styles = React.StyleSheet.create({
   container: {
     height: 250,
     alignItems: 'center',
+    overflow: 'hidden'
   },
   bg: {
     height: 250,
@@ -59,22 +78,22 @@ var styles = React.StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  user:{
+  user: {
     backgroundColor: 'transparent',
     color: '#fff',
     marginBottom: 30
   },
-  money:{
-    color:'rgba(255,255,255,.6)',
+  money: {
+    color: 'rgba(255,255,255,.6)',
     backgroundColor: 'transparent',
   },
-  amount:{
+  amount: {
     backgroundColor: 'transparent',
-    color:'#fff',
+    color: '#fff',
     fontSize: 36,
     marginTop: 10
   },
-  gear:{
+  gear: {
     backgroundColor: 'transparent',
     position: 'absolute',
     right: 15,
