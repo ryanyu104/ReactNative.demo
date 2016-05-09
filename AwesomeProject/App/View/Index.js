@@ -5,6 +5,7 @@ import React, {
   NavigatorIOS,
   StatusBar,
   TabBarIOS,
+  AlertIOS,
   Text,
   View
 } from 'react-native'
@@ -26,11 +27,15 @@ class IndexView extends Component {
     Icon.getImageSource('question-circle',20,'#fff').then((source) => this.setState({ questionIcon: source }))
   }
 
-  renderCon(title, component){
+  _handleNavigationRequest() {
+    this.refs.nav.popToTop()
+  }
+
+  renderRecommendCon(title, component){
      StatusBar.setBarStyle('light-content','true')
-     let rightButtonIcon = component === ProductView ? this.state.questionIcon : this.state.bellIcon
      return (
       <NavigatorIOS
+        ref="recommendNav"
         style = {styles.container}
         barTintColor ='#31455C'
         titleTextColor ='#fff'
@@ -39,7 +44,36 @@ class IndexView extends Component {
         initialRoute = {{
           title: title,
           component: component,
-          rightButtonIcon: rightButtonIcon,
+          rightButtonIcon: this.state.bellIcon,
+          onRightButtonPress: () => {
+            AlertIOS.alert(
+              '我是通知',
+            )
+          }
+        }}
+      />
+    )
+  }
+
+  renderProductCon(title, component){
+     StatusBar.setBarStyle('light-content','true')
+     return (
+      <NavigatorIOS
+        ref="productNav"
+        style = {styles.container}
+        barTintColor ='#31455C'
+        titleTextColor ='#fff'
+        translucent= {false}
+        tintColor='#fff'
+        initialRoute = {{
+          title: title,
+          component: component,
+          rightButtonIcon: this.state.questionIcon,
+          onRightButtonPress: () => {
+            AlertIOS.alert(
+              '我是问题',
+            )
+          }
         }}
       />
     )
@@ -75,9 +109,13 @@ class IndexView extends Component {
           iconName='star'
           iconSize={20}
           selected = {this.state.selectedBar === 'recommend'}
-          onPress = {() => this.setState({selectedBar: 'recommend'})}
+          onPress = {() =>{
+              this.setState({selectedBar: 'recommend'})
+              this.refs.recommendNav.popToTop()
+            }
+          }
         >
-          {this.renderCon('产品推荐', RecommendView)}
+          {this.renderRecommendCon('产品推荐', RecommendView)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title = '产品'
@@ -86,9 +124,13 @@ class IndexView extends Component {
           iconName='tasks'
           iconSize={20}
           selected = {this.state.selectedBar === 'product'}
-          onPress = {() => this.setState({selectedBar: 'product'})}
+          onPress = {() =>{
+              this.setState({selectedBar: 'product'})
+              this.refs.productNav.popToTop()
+            }
+          }
         >
-          {this.renderCon('产品列表', ProductView)}
+          {this.renderProductCon('产品列表', ProductView)}
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
           title = '我的'

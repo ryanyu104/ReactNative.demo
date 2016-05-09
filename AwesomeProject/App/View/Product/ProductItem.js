@@ -1,42 +1,105 @@
 import React, {
+  TouchableHighlight,
+  AlertIOS,
   Component,
   StyleSheet,
   TextInput,
   Text,
   View
 } from 'react-native'
+import BankStore from '../Store/BankStore'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import BankList from './BankList'
+
+let cardId
+
+function getSelectCardId(){
+  cardId  = BankStore.getCardId()
+}
 
 const orderData = {
   productData: {
     minAmount: 100
   },
   bankData: [{
-    bankname: '招商银行',
-    bankcard: '8000',
+    bankName: '招商银行',
+    bankCard: '8456',
+    cardId: '0'
   }, {
-    bankname: '建设银行',
-    bankcard: '7000',
+    bankName: '建设银行',
+    bankCard: '7234',
+    cardId: '1'
   }]
 }
 
 class ProductItem extends Component {
   constructor() {
     super()
+    getSelectCardId()
     this.state = {
-      text: ''
+      moneyNum: '',
+      selectCard: ''
     }
   }
 
   checkError() {
-    if (this.state.text < orderData.productData.minAmount) {
+    if (this.state.moneyNum < orderData.productData.minAmount) {
       return true
     }
     return false
   }
 
+  componentDidMount() {
+    BankStore.on('change', function () {
+      this.forceUpdate(getSelectCardId())
+    }.bind(this))
+  }
+
+
+  renderBank(){
+    for(let v in orderData.bankData){
+      if(orderData.bankData[v].cardId===cardId){
+         console.log(orderData.bankData[v])
+      }
+    }
+    return(
+      <TouchableHighlight
+        underlayColor="transparent"
+        onPress={
+          ()=>{
+            if(!this.state.moneyNum){
+              AlertIOS.alert(
+                '请先填写金额',
+              )
+              return
+            }
+            this.props.navigator.push({
+              title: '银行列表',
+              component: BankList,
+              passProps: {
+                navigator: this.props.navigator,
+                bankData: orderData.bankData,
+              }
+            })
+          }
+        }
+      >
+        <View style={styles.bankBox}>
+          <Text style={styles.title}>
+            付款银行
+          </Text>
+          <Text style={styles.bankDetail}>
+            招商银行（8000）
+          </Text>
+          <Icon style={styles.angleRight} name='angle-right' size={20} color='#999'/>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+
   render() {
-    let btnText = this.checkError() ? '购买' : `实付${this.state.text}元`
+    let btnText = this.checkError() ? '购买' : `实付${this.state.moneyNum}元`
+    let bankBox=this.renderBank()
 
     return (
       <View style={styles.container}>
@@ -47,21 +110,13 @@ class ProductItem extends Component {
             </Text>
             <TextInput
               style={styles.moneyInput}
-              onChangeText={(text) => this.setState({text})}
-              value={this.state.text}
+              onChangeText={(moneyNum) => this.setState({moneyNum})}
+              value={this.state.moneyNum}
               keyboardType='numeric'
               placeholder='100元起投'
             />
           </View>
-          <View style={styles.bankBox}>
-            <Text style={styles.title}>
-              付款银行
-            </Text>
-            <Text style={styles.bankDetail}>
-              招商银行（8000）
-            </Text>
-            <Icon style={styles.angleRight} name='angle-right' size={20} color='#999'/>
-          </View>
+          {bankBox}
         </View>
         <View style={styles.btn}>
           <Text style={[styles.btnText, this.checkError() ? styles.btnDisable : null]}>
