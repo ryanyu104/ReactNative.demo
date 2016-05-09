@@ -13,10 +13,6 @@ import BankList from './BankList'
 
 let callback
 
-function getSelectCardId(){
-  return  BankStore.getCardId()
-}
-
 const orderData = {
   productData: {
     minAmount: 100
@@ -37,7 +33,7 @@ class ProductItem extends Component {
     super()
     this.state = {
       moneyNum: '',
-      selectCardId: getSelectCardId()
+      selectCardId: BankStore.getCardId()
     }
   }
 
@@ -51,7 +47,7 @@ class ProductItem extends Component {
   componentDidMount() {
     callback = ()=>{
       this.setState({
-        selectCardId: getSelectCardId()
+        selectCardId: BankStore.getCardId()
       })
     }
     BankStore.on('change',callback)
@@ -132,11 +128,13 @@ class ProductItem extends Component {
           style={styles.btn}
           onPress={
             ()=>{
+              if(this.checkError()){
+                return
+              }
               AlertIOS.alert(
                 '购买成功',
                 null,
                 [{text: '确定', onPress: () => this.props.navigator.popToTop()}]
-
               )
             }
 
