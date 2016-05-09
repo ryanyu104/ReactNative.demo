@@ -7,14 +7,14 @@ import React, {
   Text,
   View
 } from 'react-native'
-import BankStore from '../Store/BankStore'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import BankStore from '../Store/BankStore'
 import BankList from './BankList'
 
-let cardId
+let callback
 
 function getSelectCardId(){
-  cardId  = BankStore.getCardId()
+  return  BankStore.getCardId()
 }
 
 const orderData = {
@@ -35,10 +35,9 @@ const orderData = {
 class ProductItem extends Component {
   constructor() {
     super()
-    getSelectCardId()
     this.state = {
       moneyNum: '',
-      selectCard: ''
+      selectCardId: getSelectCardId()
     }
   }
 
@@ -50,18 +49,28 @@ class ProductItem extends Component {
   }
 
   componentDidMount() {
-    BankStore.on('change', function () {
-      this.forceUpdate(getSelectCardId())
-    }.bind(this))
+    callback = ()=>{
+      this.setState({
+        selectCardId: getSelectCardId()
+      })
+    }
+    BankStore.on('change',callback)
   }
 
+  componentWillUnmount() {
+    BankStore.removeListener('change', callback)
+  }
 
   renderBank(){
-    for(let v in orderData.bankData){
-      if(orderData.bankData[v].cardId===cardId){
-         console.log(orderData.bankData[v])
+    let selectCard = orderData.bankData.length ? orderData.bankData[0]: null
+
+    for(let index in orderData.bankData){
+      if(orderData.bankData[index].cardId===this.state.selectCardId){
+        selectCard = orderData.bankData[index]
       }
     }
+
+    let selectCardText = selectCard ? `${selectCard.bankName}(${selectCard.bankCard})` : ''
     return(
       <TouchableHighlight
         underlayColor="transparent"
@@ -89,7 +98,7 @@ class ProductItem extends Component {
             付款银行
           </Text>
           <Text style={styles.bankDetail}>
-            招商银行（8000）
+            {selectCardText}
           </Text>
           <Icon style={styles.angleRight} name='angle-right' size={20} color='#999'/>
         </View>
@@ -99,7 +108,7 @@ class ProductItem extends Component {
 
   render() {
     let btnText = this.checkError() ? '购买' : `实付${this.state.moneyNum}元`
-    let bankBox=this.renderBank()
+    let bankBox = this.renderBank()
 
     return (
       <View style={styles.container}>
@@ -118,16 +127,29 @@ class ProductItem extends Component {
           </View>
           {bankBox}
         </View>
-        <View style={styles.btn}>
+        <TouchableHighlight
+          underlayColor="transparent"
+          style={styles.btn}
+          onPress={
+            ()=>{
+              AlertIOS.alert(
+                '购买成功',
+                null,
+                [{text: '确定', onPress: () => this.props.navigator.popToTop()}]
+
+              )
+            }
+
+          }
+        >
           <Text style={[styles.btnText, this.checkError() ? styles.btnDisable : null]}>
             {btnText}
           </Text>
-        </View>
+        </TouchableHighlight>
       </View>
     )
   }
 }
-
 
 var styles = React.StyleSheet.create({
   container: {

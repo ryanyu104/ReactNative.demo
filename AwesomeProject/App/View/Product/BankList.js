@@ -8,6 +8,7 @@ import React, {
 } from 'react-native'
 import appDispatcher from '../dispatcher'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import BankStore from '../Store/BankStore'
 
 class BankList extends Component{
   constructor() {
@@ -16,6 +17,7 @@ class BankList extends Component{
 
   renderItem(){
     let checkIcon=(<Icon style={styles.check} name='check' size={20} color='#31455C'/>)
+    let selectCardId=BankStore.getCardId()
 
     return this.props.bankData.map(function(value,index){
             return(
@@ -41,6 +43,7 @@ class BankList extends Component{
                   <Text style={styles.limit}>
                     可用额度5万元
                   </Text>
+                  {selectCardId===value.cardId ? checkIcon :  null}
                 </View>
               </TouchableHighlight>
             )
@@ -55,7 +58,6 @@ class BankList extends Component{
       )
   }
 }
-
 
 var styles = React.StyleSheet.create({
   container: {
