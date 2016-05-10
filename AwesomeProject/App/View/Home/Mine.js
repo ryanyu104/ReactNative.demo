@@ -2,7 +2,7 @@ import React, {
   TouchableHighlight,
   Component,
   StyleSheet,
-  ListView,
+  ScrollView,
   Text,
   Image,
   View
@@ -65,18 +65,17 @@ class MineView extends Component {
     return (
       <View style={styles.container}>
         <MineHeader/>
-        <View style={styles.main}>
+        <ScrollView style={styles.main}>
           {listView}
-        </View>
-       </View>
+        </ScrollView>
+      </View>
     )
   }
 }
 
 var styles = React.StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#F5F5F5',
   },
   shadow: {
     shadowColor: '#999',
@@ -84,7 +83,7 @@ var styles = React.StyleSheet.create({
     shadowOpacity: 0.3,
   },
   main: {
-    padding: 10
+    padding: 10,
   },
   list: {
     padding: 10,

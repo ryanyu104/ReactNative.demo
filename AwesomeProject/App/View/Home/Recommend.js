@@ -54,9 +54,7 @@ class RecommendView extends Component {
             公告：5月31日起攒钱工具维护升级，暂停使用。
           </Text>
           <RecommendNav {...this.props}/>
-          <View style={styles.grayContainer}>
-            <RecommendPro {...this.props}/>
-          </View>
+          <RecommendPro {...this.props}/>
         </ScrollView>
       </View>
     )
@@ -66,6 +64,8 @@ class RecommendView extends Component {
 var styles = React.StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 70 ,
+    backgroundColor: '#F5F5F5',
   },
   banner: {
     alignSelf: 'stretch',
@@ -87,11 +87,6 @@ var styles = React.StyleSheet.create({
   navText: {
     marginTop: 5,
   },
-  grayContainer: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#F5F5F5'
-  }
 })
 
 export default RecommendView

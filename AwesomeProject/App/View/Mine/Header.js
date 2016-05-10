@@ -60,7 +60,7 @@ var styles = React.StyleSheet.create({
   container: {
     height: 250,
     alignItems: 'center',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   bg: {
     height: 250,

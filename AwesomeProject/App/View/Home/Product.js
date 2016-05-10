@@ -1,4 +1,5 @@
 import React, {
+  ScrollView,
   TouchableHighlight,
   Component,
   StyleSheet,
@@ -108,27 +109,29 @@ class ProductView extends Component {
     let savingsList = this.renderRow(proData.savingsData)
     let walletList = this.renderRow(proData.walletData)
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          <Icon name='check' size={15} color='#FDB657' />
-          攒钱工具
-        </Text>
-        {savingsList}
-        <Text style={styles.title}>
-          <Icon name='check' size={15} color='#FDB657' />
-          零钱包
-        </Text>
-        {walletList}
-      </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            <Icon name='check' size={15} color='#FDB657' />
+            攒钱工具
+          </Text>
+          {savingsList}
+          <Text style={styles.title}>
+            <Icon name='check' size={15} color='#FDB657' />
+            零钱包
+          </Text>
+          {walletList}
+        </View>
+      </ScrollView>
     )
   }
 }
 
 var styles = React.StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F5F5F5',
-    padding: 10
+    padding: 10,
+    paddingBottom: 70
   },
   row: {
     backgroundColor: '#fff',
@@ -142,7 +145,6 @@ var styles = React.StyleSheet.create({
     paddingBottom: 10
   },
   columnBox: {
-    flex: 1,
     flexDirection: 'row',
     marginTop: 10,
     marginBottom: 10
@@ -156,7 +158,7 @@ var styles = React.StyleSheet.create({
     marginTop: 5
   },
   btn: {
-    width: 110,
+    width: 100,
     backgroundColor: '#FDB657',
     borderRadius: 5,
     padding: 5,

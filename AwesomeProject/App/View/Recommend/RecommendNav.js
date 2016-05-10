@@ -68,11 +68,9 @@ class RecommendNav extends Component {
 }
 
 var styles = React.StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5'
-  },
+
   navContainer: {
+    backgroundColor: '#fff',
     flexDirection: 'row',
     padding: 10
   },

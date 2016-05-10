@@ -64,6 +64,7 @@ var styles = React.StyleSheet.create({
     flex:1,
     backgroundColor: '#FFF',
     padding: 15,
+    margin: 10
   },
   title: {
     fontSize: 15,
