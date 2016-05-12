@@ -49,6 +49,7 @@ class BankList extends Component{
             )
           },this)
   }
+
   render(){
     let bankItem=this.renderItem()
     return(

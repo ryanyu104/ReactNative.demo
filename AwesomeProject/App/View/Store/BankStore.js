@@ -5,7 +5,6 @@ EventEmitter.prototype.setMaxListeners(100)
 let _cardId='0'
 
 function _getCardId(cardId) {
-  console.log(cardId)
   _cardId = cardId
 }
 

@@ -76,19 +76,18 @@ class MineView extends Component {
 var styles = React.StyleSheet.create({
   container: {
     backgroundColor: '#F5F5F5',
+    flex: 1,
   },
   shadow: {
     shadowColor: '#999',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.3,
   },
-  main: {
-    padding: 10,
-  },
   list: {
+    margin: 10,
+    marginTop: 0,
     padding: 10,
     backgroundColor: '#fff',
-    marginBottom: 10
   },
   box: {
     width: 120
