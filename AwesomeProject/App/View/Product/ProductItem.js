@@ -38,6 +38,9 @@ class ProductItem extends Component {
   }
 
   checkError() {
+    if(!(/^\d+$/).test(this.state.moneyNum)){
+      return true
+    }
     if (this.state.moneyNum < orderData.productData.minAmount) {
       return true
     }
