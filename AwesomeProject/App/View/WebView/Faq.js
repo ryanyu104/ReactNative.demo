@@ -2,11 +2,11 @@ import React, {
   Component,
   WebView,
 } from 'react-native'
-class NewGuider extends Component {
+class Faq extends Component {
   constructor() {
     super()
     this.state = {
-      url: 'https://www.guihua.com/help/investment_guide'
+      url: 'https://www.guihua.com/help/faq'
     }
   }
 
@@ -20,4 +20,4 @@ class NewGuider extends Component {
   }
 }
 
-export default NewGuider
+export default Faq

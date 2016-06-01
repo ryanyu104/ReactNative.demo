@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import RecommendView from './Home/Recommend'
 import ProductView from './Home/Product'
 import MineView from './Home/Mine'
+import Faq from './WebView/Faq'
 
 class IndexView extends Component {
   constructor() {
@@ -20,6 +21,7 @@ class IndexView extends Component {
     this.state = {
       selectedBar: 'recommend'
     }
+    this._handleNextButtonPress=this._handleNextButtonPress.bind(this)
   }
 
   componentWillMount() {
@@ -27,8 +29,11 @@ class IndexView extends Component {
     Icon.getImageSource('question-circle',20,'#fff').then((source) => this.setState({ questionIcon: source }))
   }
 
-  _handleNavigationRequest() {
-    this.refs.nav.popToTop()
+  _handleNextButtonPress() {
+    this.refs.productNav.push({
+      title: '常见问题',
+      component: Faq
+    })
   }
 
   renderRecommendCon(title, component){
@@ -69,11 +74,7 @@ class IndexView extends Component {
           title: title,
           component: component,
           rightButtonIcon: this.state.questionIcon,
-          onRightButtonPress: () => {
-            AlertIOS.alert(
-              '我是问题',
-            )
-          }
+          onRightButtonPress: this._handleNextButtonPress
         }}
       />
     )

@@ -43,6 +43,7 @@ class RecommendNav extends Component {
               underlayColor="#fff"
               onPress={
                 ()=>{
+                  console.log(this.props)
                   this.props.navigator.push({
                     title: value.text,
                     component: value.component,
