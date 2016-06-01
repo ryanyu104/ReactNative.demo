@@ -6,12 +6,12 @@ import React, {
   RefreshControl,
   ScrollView,
   Text,
-  Image,
   View
 } from 'react-native'
 
 import RecommendNav from '../Recommend/RecommendNav'
 import RecommendPro from '../Recommend/RecommendPro'
+import RecommendSwiper from '../Recommend/RecommendSwiper'
 
 class RecommendView extends Component {
   constructor() {
@@ -46,10 +46,7 @@ class RecommendView extends Component {
             />
           }
         >
-          <Image
-            style={styles.banner}
-            source={require('../../img/banner.png')}
-          />
+          <RecommendSwiper/>
           <Text style={styles.notice}>
             公告：5月31日起攒钱工具维护升级，暂停使用。
           </Text>
@@ -64,11 +61,8 @@ class RecommendView extends Component {
 var styles = React.StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 70 ,
+    paddingBottom: 70,
     backgroundColor: '#F5F5F5',
-  },
-  banner: {
-    alignSelf: 'stretch',
   },
   notice: {
     backgroundColor: '#FFFBE4',
