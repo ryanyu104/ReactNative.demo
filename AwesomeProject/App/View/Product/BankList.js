@@ -7,7 +7,7 @@ import React, {
 } from 'react-native'
 import appDispatcher from '../dispatcher'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import BankStore from '../Store/BankStore'
+import AppStore from '../Store/AppStore'
 
 class BankList extends Component{
   constructor() {
@@ -16,7 +16,7 @@ class BankList extends Component{
 
   renderItem(){
     let checkIcon=(<Icon style={styles.check} name='check' size={20} color='#31455C'/>)
-    let selectCardId=BankStore.getCardId()
+    let selectCardId=AppStore.getCardId()
 
     return this.props.bankData.map(function(value,index){
       return(

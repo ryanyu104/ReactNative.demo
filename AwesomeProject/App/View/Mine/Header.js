@@ -11,24 +11,41 @@ import React, {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import NavigationBar from 'react-native-navbar'
 import AccountView from '../Account/Account'
+import AppStore from '../Store/AppStore'
+
+let callback
 
 class MineHeader extends Component {
   constructor() {
     super()
     this.state = {
       scaleValue: new Animated.Value(0),
+      loginStatus: AppStore.getLoginStatus()
     }
-    this._renderAccount=this._renderAccount.bind(this)
+    this._renderAccount = this._renderAccount.bind(this)
   }
 
   componentDidMount() {
     this.state.scaleValue.setValue(1);
+
     Animated.timing(
       this.state.scaleValue, {
         toValue: 1.08,
         duration: 3000,
       }
     ).start()
+
+    callback = () => {
+      this.setState({
+        loginStatus: AppStore.getLoginStatus()
+      })
+    }
+
+    AppStore.on('change', callback)
+  }
+
+  componentWillUnmount() {
+    AppStore.removeListener('change', callback)
   }
 
   _renderAccount() {
@@ -37,6 +54,19 @@ class MineHeader extends Component {
       navigationBar: <NavigationBar  hidePrev="true" />,
       component: AccountView,
     })
+  }
+
+  renderloginInfo() {
+    return (
+      <TouchableHighlight
+        underlayColor="transparent"
+        onPress={this._renderAccount}
+      >
+        <Text style={styles.user}>
+          {this.state.loginStatus ? 'Jobs' : '登录/注册'}
+        </Text>
+      </TouchableHighlight>
+    )
   }
 
   renderProfiles() {
@@ -53,6 +83,9 @@ class MineHeader extends Component {
   }
 
   render() {
+    const loginInfo = this.renderloginInfo()
+    const profiles = this.renderProfiles()
+
     return (
       <View style={styles.container}>
          <Animated.Image
@@ -66,14 +99,8 @@ class MineHeader extends Component {
           <View style={styles.circle}>
             <Icon name='user' size={30} color='#fff' />
           </View>
-          <TouchableHighlight
-            underlayColor="transparent"
-            onPress={this._renderAccount}
-          >
-            <Text style={styles.user}>
-              登录/注册
-            </Text>
-          </TouchableHighlight>
+          {loginInfo}
+          {this.state.loginStatus?profiles:null}
           <Icon style={styles.gear} name='gear' size={20} color='#fff' />
        </View>
     )
@@ -105,11 +132,12 @@ let styles = StyleSheet.create({
   user: {
     backgroundColor: 'transparent',
     color: '#fff',
-    marginBottom: 30
+    marginBottom: 20
   },
   money: {
     color: 'rgba(255,255,255,.6)',
     backgroundColor: 'transparent',
+    textAlign:'center'
   },
   amount: {
     backgroundColor: 'transparent',

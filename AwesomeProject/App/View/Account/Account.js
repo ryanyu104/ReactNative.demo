@@ -7,6 +7,7 @@ import React, {
   Image,
   View
 } from 'react-native'
+import appDispatcher from '../dispatcher'
 
 class AccountView extends Component {
   constructor() {
@@ -38,6 +39,10 @@ class AccountView extends Component {
               onPress={
                 ()=>{
                   this.props.navigator.pop()
+                  appDispatcher.dispatch({
+                    actionType: 'click:login',
+                    loginStatus: true
+                  })
                 }
               }
             >
@@ -53,14 +58,14 @@ class AccountView extends Component {
 }
 
 let styles = StyleSheet.create({
-  wrapper:{
-    flex:1,
+  wrapper: {
+    flex: 1,
   },
   bg: {
     flex: 1,
     position: 'absolute',
   },
-  textInput:{
+  textInput: {
     height: 30,
     backgroundColor: 'rgba(255,255,255,.5)',
     paddingLeft: 5,
@@ -68,21 +73,21 @@ let styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 15
   },
-  inputWapper:{
+  inputWapper: {
     flexDirection: 'row',
   },
-  inputBox:{
+  inputBox: {
     flex: 1,
     marginTop: 150,
     paddingLeft: 20,
     paddingRight: 20,
   },
-  btn:{
-    backgroundColor:'#2E67B7',
+  btn: {
+    backgroundColor: '#2E67B7',
     marginTop: 25,
     padding: 8
   },
-  btnText:{
+  btnText: {
     color: 'white',
     textAlign: 'center'
   }

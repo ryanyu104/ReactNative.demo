@@ -8,7 +8,7 @@ import React, {
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import BankStore from '../Store/BankStore'
+import AppStore from '../Store/AppStore'
 import BankList from './BankList'
 
 let callback
@@ -33,7 +33,7 @@ class ProductItem extends Component {
     super()
     this.state = {
       moneyNum: '',
-      selectCardId: BankStore.getCardId()
+      selectCardId: AppStore.getCardId()
     }
   }
 
@@ -50,14 +50,14 @@ class ProductItem extends Component {
   componentDidMount() {
     callback = ()=>{
       this.setState({
-        selectCardId: BankStore.getCardId()
+        selectCardId: AppStore.getCardId()
       })
     }
-    BankStore.on('change',callback)
+    AppStore.on('change',callback)
   }
 
   componentWillUnmount() {
-    BankStore.removeListener('change', callback)
+    AppStore.removeListener('change', callback)
   }
 
   renderBank(){
