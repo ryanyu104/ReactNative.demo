@@ -5,9 +5,9 @@ import React, {
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import NewGuider from '../MiddleNav/NewGuider'
-import InviteFriends from '../MiddleNav/InviteFriends'
-import Safety from '../MiddleNav/Safety'
+import NewGuider from '../WebView/NewGuider'
+import InviteFriends from '../WebView/InviteFriends'
+import Safety from '../WebView/Safety'
 
 const itemData = [
   {
@@ -43,7 +43,6 @@ class RecommendNav extends Component {
               underlayColor="#fff"
               onPress={
                 ()=>{
-                  console.log(this.props)
                   this.props.navigator.push({
                     title: value.text,
                     component: value.component,

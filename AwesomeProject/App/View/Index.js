@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import RecommendView from './Home/Recommend'
 import ProductView from './Home/Product'
 import MineView from './Home/Mine'
+import Account from './Account/Account'
 import Faq from './WebView/Faq'
 
 class IndexView extends Component {

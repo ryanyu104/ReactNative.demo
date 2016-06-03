@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events'
 import appDispatcher from '../dispatcher'
-EventEmitter.prototype.setMaxListeners(100)
 
 let _cardId='0'
 

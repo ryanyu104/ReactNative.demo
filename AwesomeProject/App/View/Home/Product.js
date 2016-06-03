@@ -2,6 +2,7 @@ import React, {
   ScrollView,
   TouchableHighlight,
   Component,
+  Navigator,
   StyleSheet,
   Text,
   View
@@ -83,7 +84,7 @@ class ProductView extends Component {
                     this.props.navigator.push({
                       title: value.title,
                       component: ProductItem,
-                      passProps: {navigator: this.props.navigator}
+                      passProps: {navigator: this.props.navigator},
                     })
                   }
                 }
@@ -158,7 +159,6 @@ var styles = React.StyleSheet.create({
     marginTop: 5
   },
   btn: {
-    width: 100,
     backgroundColor: '#FDB657',
     borderRadius: 5,
     padding: 5,
