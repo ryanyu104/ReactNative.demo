@@ -1,5 +1,6 @@
 import React, {
   TouchableHighlight,
+  StyleSheet,
   Component,
   TextInput,
   Text,
@@ -7,7 +8,7 @@ import React, {
   View
 } from 'react-native'
 
-class Account extends Component {
+class AccountView extends Component {
   constructor() {
     super()
   }
@@ -30,11 +31,18 @@ class Account extends Component {
               style={styles.textInput}
               placeholder='密码'
             />
-            <View style={styles.btn}>
+            <TouchableHighlight
+              style={styles.btn}
+              onPress={
+                ()=>{
+                  this.props.navigator.pop()
+                }
+              }
+            >
               <Text style={styles.btnText}>
                 登录
               </Text>
-            </View>
+            </TouchableHighlight>
           </View>
         </View>
       </View>
@@ -42,7 +50,7 @@ class Account extends Component {
   }
 }
 
-let styles = React.StyleSheet.create({
+let styles = StyleSheet.create({
   wrapper:{
     flex:1,
   },
@@ -77,4 +85,5 @@ let styles = React.StyleSheet.create({
     textAlign: 'center'
   }
 })
-export default Account
+
+export default AccountView

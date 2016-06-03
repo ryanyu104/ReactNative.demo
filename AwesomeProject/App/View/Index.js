@@ -12,8 +12,7 @@ import React, {
 import Icon from 'react-native-vector-icons/FontAwesome'
 import RecommendView from './Home/Recommend'
 import ProductView from './Home/Product'
-import MineView from './Home/Mine'
-import Account from './Account/Account'
+import MineNavigator from './Mine/MineNavigator'
 import Faq from './WebView/Faq'
 
 class IndexView extends Component {
@@ -143,14 +142,14 @@ class IndexView extends Component {
           selected = {this.state.selectedBar === 'mine'}
           onPress = {() => this.setState({selectedBar: 'mine'})}
         >
-          {this.renderMineCon('我的', MineView)}
+          {this.renderMineCon('我的', MineNavigator)}
         </Icon.TabBarItemIOS>
       </TabBarIOS>
     )
   }
 }
 
-var styles = React.StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1,
   },

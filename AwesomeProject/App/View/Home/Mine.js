@@ -63,7 +63,7 @@ class MineView extends Component {
     let listView = this.renderList()
     return (
       <View style={styles.container}>
-        <MineHeader/>
+        <MineHeader {...this.props} />
         <ScrollView style={styles.main}>
           {listView}
         </ScrollView>
@@ -72,7 +72,7 @@ class MineView extends Component {
   }
 }
 
-var styles = React.StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5F5F5',
     flex: 1,

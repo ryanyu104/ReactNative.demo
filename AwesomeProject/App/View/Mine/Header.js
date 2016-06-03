@@ -1,5 +1,7 @@
 import React, {
+  TouchableHighlight,
   Component,
+  Navigator,
   StyleSheet,
   Animated,
   Text,
@@ -7,6 +9,8 @@ import React, {
   View
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import NavigationBar from 'react-native-navbar'
+import AccountView from '../Account/Account'
 
 class MineHeader extends Component {
   constructor() {
@@ -14,17 +18,38 @@ class MineHeader extends Component {
     this.state = {
       scaleValue: new Animated.Value(0),
     }
+    this._renderAccount=this._renderAccount.bind(this)
   }
 
   componentDidMount() {
     this.state.scaleValue.setValue(1);
     Animated.timing(
-      this.state.scaleValue,
-      {
+      this.state.scaleValue, {
         toValue: 1.08,
         duration: 3000,
       }
     ).start()
+  }
+
+  _renderAccount() {
+    this.props.navigator.push({
+      sceneConfig: Navigator.SceneConfigs.FloatFromBottom,
+      navigationBar: <NavigationBar  hidePrev="true" />,
+      component: AccountView,
+    })
+  }
+
+  renderProfiles() {
+    return (
+      <View>
+        <Text style={styles.money}>
+          资产总额（元）
+        </Text>
+        <Text style={styles.amount}>
+          128900.00
+        </Text>
+      </View>
+    )
   }
 
   render() {
@@ -41,22 +66,21 @@ class MineHeader extends Component {
           <View style={styles.circle}>
             <Icon name='user' size={30} color='#fff' />
           </View>
-          <Text style={styles.user}>
-            用户名
-          </Text>
-          <Text style={styles.money}>
-            资产总额（元）
-          </Text>
-          <Text style={styles.amount}>
-            128900.00
-          </Text>
+          <TouchableHighlight
+            underlayColor="transparent"
+            onPress={this._renderAccount}
+          >
+            <Text style={styles.user}>
+              登录/注册
+            </Text>
+          </TouchableHighlight>
           <Icon style={styles.gear} name='gear' size={20} color='#fff' />
        </View>
     )
   }
 }
 
-var styles = React.StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     height: 250,
     alignItems: 'center',
@@ -73,7 +97,7 @@ var styles = React.StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     backgroundColor: 'transparent',
-    marginTop: 40,
+    marginTop: 60,
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
