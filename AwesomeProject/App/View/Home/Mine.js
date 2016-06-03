@@ -8,7 +8,7 @@ import React, {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import MineHeader from '../Mine/Header'
-import InviteFriends from '../MiddleNav/InviteFriends'
+import InviteFriends from '../WebView/InviteFriends'
 
 const userData = [{
   title: '攒钱工具',
