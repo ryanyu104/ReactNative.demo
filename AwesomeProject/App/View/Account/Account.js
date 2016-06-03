@@ -26,10 +26,12 @@ class AccountView extends Component {
               style={styles.textInput}
               keyboardType='numeric'
               placeholder='手机号'
+              maxLength={11}
             />
             <TextInput
               style={styles.textInput}
               placeholder='密码'
+              secureTextEntry={true}
             />
             <TouchableHighlight
               style={styles.btn}
